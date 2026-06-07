@@ -1,3 +1,9 @@
+# PUBG Booster Platform - Railway Ready
+
+✅ Esta versão está pronta para deploy direto no Railway via GitHub usando Dockerfile na raiz.
+
+Leia primeiro: `DEPLOY_RAILWAY_DIRETO.md`
+
 # PUBG Booster Platform
 
 MVP com:
