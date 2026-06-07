@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Usuários</h1>
+
+<div class="row">
+  <div class="card">
+    <h2>Criar usuário</h2>
+    <form action="/admin/users/create" method="post">
+      <input name="name" placeholder="Nome" required>
+      <input name="email" type="email" placeholder="E-mail" required>
+      <input name="password" type="password" placeholder="Senha" required>
+      <select name="role">
+        <option value="customer">Cliente</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button>Criar usuário</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Clientes</h2>
+    <table>
+      <tr><th>Nome</th><th>E-mail</th><th>Tipo</th><th>Status</th></tr>
+      {% for u in users %}
+      <tr>
+        <td>{{ u.name }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.role }}</td>
+        <td>{% if u.is_active %}<span class="pill active">Ativo</span>{% else %}<span class="pill inactive">Inativo</span>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

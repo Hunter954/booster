@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title or "FRAME Boost Admin" }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #09090b;
+      --card: #141418;
+      --card2: #1d1d23;
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --red: #ef233c;
+      --red2: #b00020;
+      --border: #2a2a32;
+      --green: #22c55e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top left, #2b0a12 0, #09090b 35%, #050505 100%);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .layout { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 250px;
+      background: rgba(10,10,12,.92);
+      border-right: 1px solid var(--border);
+      padding: 24px 18px;
+      position: fixed;
+      top: 0; bottom: 0;
+    }
+    .brand {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 28px;
+    }
+    .brand span { color: var(--red); }
+    .nav a {
+      display: block;
+      padding: 12px 14px;
+      margin: 8px 0;
+      border-radius: 12px;
+      color: var(--muted);
+      background: transparent;
+    }
+    .nav a:hover {
+      background: var(--card2);
+      color: white;
+    }
+    .content {
+      margin-left: 250px;
+      padding: 28px;
+      width: calc(100% - 250px);
+    }
+    .topbar {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom: 24px;
+    }
+    .card {
+      background: rgba(20,20,24,.86);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 20px 70px rgba(0,0,0,.22);
+    }
+    .grid { display:grid; gap: 18px; }
+    .grid4 { grid-template-columns: repeat(4, 1fr); }
+    .stat .num { font-size: 34px; font-weight: 800; }
+    .stat .label { color: var(--muted); margin-top: 6px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td {
+      text-align: left;
+      padding: 13px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    th { color: var(--muted); font-weight: 600; }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #0e0e12;
+      color: white;
+      outline: none;
+      margin-bottom: 10px;
+    }
+    textarea { min-height: 220px; font-family: Consolas, monospace; }
+    button, .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 11px 15px;
+      background: linear-gradient(135deg, var(--red), var(--red2));
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .btn2 { background: #27272f; }
+    .pill {
+      display:inline-flex;
+      padding: 5px 9px;
+      border-radius:999px;
+      font-size: 12px;
+      background:#26262e;
+      color:#ddd;
+    }
+    .active { background: rgba(34,197,94,.15); color: #86efac; }
+    .inactive { background: rgba(239,35,60,.15); color: #fca5a5; }
+    .row { display:grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media(max-width: 900px) {
+      .sidebar { position: relative; width: 100%; height:auto; }
+      .layout { display:block; }
+      .content { margin-left:0; width:100%; }
+      .grid4, .row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">FRAME <span>Boost</span></div>
+    <nav class="nav">
+      <a href="/admin">Dashboard</a>
+      <a href="/admin/users">Usuários</a>
+      <a href="/admin/licenses">Chaves / Licenças</a>
+      <a href="/admin/presets">Presets</a>
+      <a href="/admin/logout">Sair</a>
+    </nav>
+  </aside>
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+</div>
+</body>
+</html>

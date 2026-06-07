@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="topbar">
+  <div>
+    <h1>Dashboard</h1>
+    <p style="color:#a1a1aa;">Controle seus usuários, licenças e presets de otimização.</p>
+  </div>
+</div>
+
+<div class="grid grid4">
+  <div class="card stat"><div class="num">{{ stats.users }}</div><div class="label">Usuários</div></div>
+  <div class="card stat"><div class="num">{{ stats.licenses }}</div><div class="label">Licenças</div></div>
+  <div class="card stat"><div class="num">{{ stats.devices }}</div><div class="label">Dispositivos</div></div>
+  <div class="card stat"><div class="num">{{ stats.presets }}</div><div class="label">Presets</div></div>
+</div>
+
+<br>
+
+<div class="card">
+  <h2>Licenças recentes</h2>
+  <table>
+    <tr>
+      <th>Chave</th><th>Plano</th><th>Dispositivos</th><th>Status</th>
+    </tr>
+    {% for l in licenses %}
+    <tr>
+      <td><code>{{ l.key }}</code></td>
+      <td>{{ l.plan }}</td>
+      <td>{{ l.devices|length }} / {{ l.max_devices }}</td>
+      <td>
+        {% if l.is_active %}
+          <span class="pill active">Ativa</span>
+        {% else %}
+          <span class="pill inactive">Inativa</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

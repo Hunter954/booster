@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Chaves / Licenças</h1>
+
+<div class="row">
+  <div class="card">
+    <h2>Gerar nova chave</h2>
+    <form action="/admin/licenses/create" method="post">
+      <select name="plan">
+        <option value="basic">Basic</option>
+        <option value="pro">Pro</option>
+        <option value="premium">Premium</option>
+      </select>
+      <input name="max_devices" type="number" min="1" max="10" value="1" placeholder="Máximo de PCs">
+      <select name="user_id">
+        <option value="">Sem usuário vinculado</option>
+        {% for u in users %}
+        <option value="{{ u.id }}">{{ u.name }} - {{ u.email }}</option>
+        {% endfor %}
+      </select>
+      <button>Gerar chave</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Licenças</h2>
+    <table>
+      <tr><th>Chave</th><th>Plano</th><th>Cliente</th><th>PCs</th><th>Status</th><th>Ações</th></tr>
+      {% for l in licenses %}
+      <tr>
+        <td><code>{{ l.key }}</code></td>
+        <td>{{ l.plan }}</td>
+        <td>{% if l.user %}{{ l.user.email }}{% else %}-{% endif %}</td>
+        <td>{{ l.devices|length }} / {{ l.max_devices }}</td>
+        <td>{% if l.is_active %}<span class="pill active">Ativa</span>{% else %}<span class="pill inactive">Inativa</span>{% endif %}</td>
+        <td>
+          <form action="/admin/licenses/toggle/{{ l.id }}" method="post" style="display:inline;">
+            <button class="btn2" type="submit">Ativar/Desativar</button>
+          </form>
+          <form action="/admin/licenses/reset_devices/{{ l.id }}" method="post" style="display:inline;">
+            <button class="btn2" type="submit">Reset PCs</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

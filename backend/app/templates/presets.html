@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Presets</h1>
+
+<div class="row">
+  <div class="card">
+    <h2>Criar preset</h2>
+    <form action="/admin/presets/create" method="post">
+      <input name="game" value="pubg" placeholder="Jogo">
+      <input name="name" placeholder="Nome do preset" required>
+      <input name="slug" placeholder="slug-exemplo" required>
+      <select name="plan_required">
+        <option value="basic">Basic</option>
+        <option value="pro">Pro</option>
+        <option value="premium">Premium</option>
+      </select>
+      <input name="description" placeholder="Descrição">
+      <textarea name="config_json" required>{
+  "windows": {
+    "power_plan": "high_performance",
+    "disable_game_dvr": true,
+    "enable_game_mode": true,
+    "clean_temp": true,
+    "stop_services": [
+      "SysMain",
+      "WSearch",
+      "DiagTrack",
+      "MapsBroker"
+    ],
+    "never_close_processes": [
+      "Discord.exe",
+      "chrome.exe",
+      "msedge.exe",
+      "brave.exe",
+      "opera.exe",
+      "firefox.exe"
+    ]
+  },
+  "nvidia": {
+    "mode": "prepared_only",
+    "profile_target": "TslGame.exe",
+    "settings": {
+      "Texture Filtering Quality": "High performance",
+      "Power Management Mode": "Prefer maximum performance",
+      "Scaling Mode": "Full-screen",
+      "Perform Scaling On": "GPU",
+      "Override Scaling Mode": "On"
+    }
+  }
+}</textarea>
+      <button>Criar preset</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Presets cadastrados</h2>
+    <table>
+      <tr><th>Nome</th><th>Jogo</th><th>Plano</th><th>Status</th><th>Ações</th></tr>
+      {% for p in presets %}
+      <tr>
+        <td>
+          <b>{{ p.name }}</b><br>
+          <small style="color:#a1a1aa;">{{ p.slug }}</small>
+        </td>
+        <td>{{ p.game }}</td>
+        <td>{{ p.plan_required }}</td>
+        <td>{% if p.is_active %}<span class="pill active">Ativo</span>{% else %}<span class="pill inactive">Inativo</span>{% endif %}</td>
+        <td>
+          <form action="/admin/presets/toggle/{{ p.id }}" method="post">
+            <button class="btn2" type="submit">Ativar/Desativar</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>FRAME Boost Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin:0; min-height:100vh; display:grid; place-items:center;
+      background: radial-gradient(circle at top left, #3a0711 0, #08080a 42%, #000 100%);
+      color:white; font-family: Arial, Helvetica, sans-serif;
+    }
+    .box {
+      width: min(420px, 92vw);
+      background: rgba(20,20,24,.88);
+      border: 1px solid #2a2a32;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 30px 100px rgba(0,0,0,.35);
+    }
+    h1 { margin: 0 0 8px; font-size: 30px; }
+    h1 span { color:#ef233c; }
+    p { color:#a1a1aa; margin-bottom: 25px; }
+    input {
+      width:100%; padding:14px; border-radius:14px; border:1px solid #2a2a32;
+      background:#0e0e12; color:white; margin-bottom:12px; box-sizing:border-box;
+    }
+    button {
+      width:100%; padding:14px; border-radius:14px; border:none;
+      background:linear-gradient(135deg,#ef233c,#b00020); color:white; font-weight:800;
+      cursor:pointer;
+    }
+    .error { color:#fca5a5; margin-bottom:12px; }
+  </style>
+</head>
+<body>
+  <form class="box" action="/admin/login" method="post">
+    <h1>FRAME <span>Boost</span></h1>
+    <p>Painel administrativo</p>
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    <input name="email" type="email" placeholder="E-mail" required>
+    <input name="password" type="password" placeholder="Senha" required>
+    <button>Entrar</button>
+  </form>
+</body>
+</html>
